@@ -1,16 +1,34 @@
+import { Injectable } from '@angular/core';
+import { Http, URLSearchParams } from '@angular/http';
+import 'rxjs/add/operator/map';
+@Injectable()
 export class MediaItemService {
-  get() {
-    return this.mediaItems;
+  constructor(private http: Http){}
+
+  get(medium) {
+    // use searchParams to help packaging search query data
+    let searchParams = new URLSearchParams();
+    searchParams.append('medium', medium);
+    //append: "&medium={{medium}}"
+    //http get mothod returns an observable of http responses
+    //use map function to unwrap the observable sending back by http get request;
+    //import 'rxjs/add/operator/map'
+    return this.http.get('mediaitems', {search: searchParams}).map(response => {
+      return response.json().mediaItems;
+    });
   }
   
   add(mediaItem) {
-    this.mediaItems.push(mediaItem);
+    return this.http.post('mediaitems', mediaItem).map(response=>{});
   }
   
   delete(mediaItem) {
+      return this.http.delete(`mediaitems/${mediaItem.id}`);
+  }
+  watch(mediaItem) {
     let index = this.mediaItems.indexOf(mediaItem);
     if(index >= 0) {
-      this.mediaItems.splice(index, 1);
+      this.mediaItems[index].watchedOn = new Date().getTime();
     }
   }
 

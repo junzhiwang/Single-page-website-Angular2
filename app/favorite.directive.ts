@@ -15,6 +15,10 @@ export class FavoriteDirective {
   @HostListener('mouseleave') onMouseLeave() {
     this.hovering = false;
   }
+
+  @HostListener('click') onClick() {
+    this.isFavorite = !this.isFavorite;
+  }
   
   @Input() set mwFavorite(value) {
     this.isFavorite = value;

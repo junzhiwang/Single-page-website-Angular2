@@ -48,6 +48,7 @@ export class MediaItemFormComponent {
   }
 
   onSubmit(mediaItem) {
-    this.mediaItemService.add(mediaItem);
+    console.log(JSON.stringify(mediaItem));
+    this.mediaItemService.add(mediaItem).subscribe();
   }
 }

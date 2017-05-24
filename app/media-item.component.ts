@@ -8,8 +8,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class MediaItemComponent {
   @Input() mediaItem;
   @Output() delete = new EventEmitter();
-
+  @Output() watch = new EventEmitter();
   onDelete() {
     this.delete.emit(this.mediaItem);
+  }
+  onWatch() {
+  	this.watch.emit(this.mediaItem);
   }
 }
